@@ -10,6 +10,7 @@ namespace DevilDesireDevLib.Implementation.Networking
 {
     public class Network : INetwork
     {
+        public static INetwork Instance { get; } = new Network();
         public string LoadUrl(string url, CookieContainer cookieContainer = null, int timeout = 10000)
         {
             return LoadUrlPost(url, null, cookieContainer, timeout);

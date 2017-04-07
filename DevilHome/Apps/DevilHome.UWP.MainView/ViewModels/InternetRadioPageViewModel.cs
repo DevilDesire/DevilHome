@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
-using DevilDesireDevLib.Implementation.Networking;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 
 namespace DevilHome.UWP.MainView.ViewModels
 {
-    public class InternetRadioPageViewModel : ViewModelBase
+    public class InternetRadioPageViewModel : DevilHomeBase
     {
         public InternetRadioPageViewModel()
         {
@@ -63,7 +62,7 @@ namespace DevilHome.UWP.MainView.ViewModels
         public DelegateCommand SetPlay
             => m_SetPlay ?? (m_SetPlay = new DelegateCommand(() =>
             {
-                new Network().LoadUrl(string.Format("{0}set/Radio?Music={1}", ConfigurationValues.BaseUrl,
+                Network.LoadUrl(string.Format("{0}set/Radio?Music={1}", ConfigurationValues.BaseUrl,
                     Play ? "play" : "stop"));
             }));
     }
