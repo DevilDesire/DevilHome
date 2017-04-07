@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="DevilHome.UWP.MainView.Views.InternetRadioPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DevilHome.UWP.MainView.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:viewModels="using:DevilHome.UWP.MainView.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:InternetRadioPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <controls:PageHeader x:Name="pageHeader"
+                             Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True"
+                             Text="Internet Radio">
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton Label="Neue Station hinzufügen" />
+            </controls:PageHeader.SecondaryCommands>
+        </controls:PageHeader>
+
+        <RelativePanel RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="pageHeader"
+                       EntranceNavigationTransitionInfo.IsTargetElement="True" Padding="12,0,0,0">
+            <ListView x:Name="playList" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" >
+                
+            </ListView>
+            <StackPanel RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Orientation="Horizontal">
+                <ToggleSwitch x:Name="btnPlayStop" HorizontalAlignment="Center" Margin="15" OffContent="Stop" OnContent="Play" IsOn="{Binding Play, Mode=TwoWay}"/>
+                <Slider HorizontalAlignment="Center" Width="200" Margin="15"/>
+            </StackPanel>
+        </RelativePanel>
+    </RelativePanel>
+</Page>

@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/DevilHome/Apps/DevilHome.UWP.MainView/ConfigurationValues.cs
+/DevilHome/Server/DevilHome.Server/ConfigurationValues.cs
