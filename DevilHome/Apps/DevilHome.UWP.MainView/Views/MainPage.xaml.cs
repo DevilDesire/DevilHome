@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
+//using System.Management;
 
 namespace DevilHome.UWP.MainView.Views
 {
@@ -13,6 +14,7 @@ namespace DevilHome.UWP.MainView.Views
         {
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            //ManagementClass mc = new ManagementClass("Win32_TemperatureProbe");
         }
     }
 }

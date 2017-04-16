@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Http;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.System.Threading;
 
 namespace DevilHome.Server
 {
-    private static BackgroundTaskDeferral m_Deferral;
-    private AppServiceConnection m_Connection;
-
     public sealed class StartupTask : IBackgroundTask
     {
-        public void Run(IBackgroundTaskInstance taskInstance)
+        private static BackgroundTaskDeferral m_Deferral;
+        private AppServiceConnection m_Connection;
+
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
             m_Deferral = taskInstance.GetDeferral();
 

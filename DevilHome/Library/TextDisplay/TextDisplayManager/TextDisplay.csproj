@@ -126,8 +126,8 @@
     <Compile Include="TextDisplayManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsIoT, Version=10.0.10240.0">
-      <Name>Windows IoT Extensions for the UWP</Name>
+    <SDKReference Include="WindowsTeam, Version=10.0.14393.0">
+      <Name>Windows Team Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -1,71 +1,44 @@
-using System.ComponentModel;
-using System.Linq;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
-using Windows.UI.Composition;
-using Template10.Common;
 using Template10.Controls;
 using Template10.Services.NavigationService;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using Template10.Mvvm;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 namespace DevilHome.UWP.MainView.Views
 {
-    public sealed partial class Shell : Page
+    public sealed partial class Shell
     {
         public static Shell Instance { get; set; }
         public static HamburgerMenu HamburgerMenu => Instance.MyHamburgerMenu;
-        Services.SettingsServices.SettingsService _settings;
+        Services.SettingsServices.SettingsService m_Settings;
 
         public Shell()
         {
             Instance = this;
             InitializeComponent();
-            _settings = Services.SettingsServices.SettingsService.Instance;
+            m_Settings = Services.SettingsServices.SettingsService.Instance;
             SetImageBlur();
+            InitView();
+        }
+
+        public void InitView()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                mainGrid.Margin = new Thickness(20d);
+            }
         }
 
         public async void SetImageBlur()
         {
             await imgBackground.Blur(duration: 10, delay: 0, value: 10).StartAsync();
-
-            //using (var stream = await mainGrid.RenderToRandomAccessStream())
-            //{
-            //    var device = new CanvasDevice();
-            //    var bitmap = await CanvasBitmap.LoadAsync(device, stream);
-
-            //    var renderer = new CanvasRenderTarget(device,
-            //                                          bitmap.SizeInPixels.Width,
-            //                                          bitmap.SizeInPixels.Height,
-            //                                          bitmap.Dpi);
-
-            //    using (var ds = renderer.CreateDrawingSession())
-            //    {
-            //        var blur = new DropShadow()
-            //        {
-                        
-            //        };
-
-            //        ds.DrawImage(blur);
-            //    }
-
-            //    stream.Seek(0);
-            //    await renderer.SaveAsync(stream, CanvasBitmapFileFormat.Png);
-
-            //    BitmapImage image = new BitmapImage();
-            //    image.SetSource(stream);
-            //    //imgBackground.Source = image;
-            //}
         }
 
         public Shell(INavigationService navigationService) : this()
@@ -76,9 +49,9 @@ namespace DevilHome.UWP.MainView.Views
         public void SetNavigationService(INavigationService navigationService)
         {
             MyHamburgerMenu.NavigationService = navigationService;
-            HamburgerMenu.RefreshStyles(_settings.AppTheme, true);
-            HamburgerMenu.IsFullScreen = _settings.IsFullScreen;
-            HamburgerMenu.HamburgerButtonVisibility = _settings.ShowHamburgerButton ? Visibility.Visible : Visibility.Collapsed;
+            HamburgerMenu.RefreshStyles(m_Settings.AppTheme, true);
+            HamburgerMenu.IsFullScreen = m_Settings.IsFullScreen;
+            HamburgerMenu.HamburgerButtonVisibility = m_Settings.ShowHamburgerButton ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 

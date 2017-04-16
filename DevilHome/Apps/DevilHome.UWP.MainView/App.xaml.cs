@@ -1,14 +1,13 @@
+using System;
 using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using DevilHome.UWP.MainView.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation.Metadata;
+using Windows.UI.ViewManagement;
 using Template10.Controls;
 using Template10.Common;
-using System;
-using System.Linq;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Controls;
 
 namespace DevilHome.UWP.MainView
 {
@@ -34,6 +33,7 @@ namespace DevilHome.UWP.MainView
             AutoRestoreAfterTerminated = true;
             AutoExtendExecutionSession = true;
             //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
             #endregion
         }
 
@@ -51,7 +51,12 @@ namespace DevilHome.UWP.MainView
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
-            await NavigationService.NavigateAsync(typeof(Views.MainPage));
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                await StatusBar.GetForCurrentView().HideAsync();
+            }
+
+            await NavigationService.NavigateAsync(typeof(Views.RoomControlPage));
         }
     }
 }

@@ -7,6 +7,10 @@ namespace DevilHome.Common.Interfaces.Enums
         [StringValue("music")]
         Music,
         [StringValue("volume")]
-        Volume
+        Volume,
+        [StringValue("outlet")]
+        Outlet,
+        [StringValue("light")]
+        Light
     }
 }

@@ -1,0 +1,69 @@
+﻿<Page x:Name="page"
+    x:Class="DevilHome.UWP.MainView.Views.RoomControlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DevilHome.UWP.MainView.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:uwp="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:viewModels="using:DevilHome.UWP.MainView.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:RoomControlPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <RelativePanel Background="#BF000000">
+        <controls:PageHeader x:Name="pageHeader"
+                             Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True"
+                             Text="Raumsteuerung">
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton Label="Neuen Raum hinzufügen" />
+            </controls:PageHeader.SecondaryCommands>
+        </controls:PageHeader>
+        <Pivot x:Name="piRooms" RelativePanel.Below="pageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" 
+               IsHeaderItemsCarouselEnabled="True" ItemsSource="{Binding RoomList}">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <Pivot.ItemTemplate>
+                <DataTemplate>
+                    <ScrollViewer VerticalScrollMode="Auto" ZoomMode="Disabled">
+                        <RelativePanel>
+                            <uwp:Expander Header="Steckdosen" x:Name="expOutlet" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Tapped="expOutlet_Tapped" HorizontalContentAlignment="Stretch"  Margin="0,10">
+                                <ListView ItemsSource="{Binding PoweroutletValues}" SelectionMode="None" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                                                <TextBlock Text="{Binding Name}" RelativePanel.AlignLeftWithPanel="True" />
+                                                <Button x:Name="btnPowerOff" Content="Aus" RelativePanel.AlignRightWithPanel="True" Background="#7FFF0000" Margin="10,0" CommandParameter="{Binding}" Command="{Binding DataContext.SetOutletStatusOff, ElementName=page}"/>
+                                                <Button Content="An" RelativePanel.LeftOf="btnPowerOff" Background="#7F00FF00" Margin="10,0" CommandParameter="{Binding}" Command="{Binding DataContext.SetOutletStatusOn, ElementName=page}"/>
+                                            </RelativePanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </uwp:Expander>
+                            <uwp:Expander Header="Licht" x:Name="expLight" RelativePanel.Below="expOutlet" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
+
+                            </uwp:Expander>
+                            <uwp:Expander Header="Sensoren" x:Name="expSensors" RelativePanel.Below="expLight" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
+
+                            </uwp:Expander>
+                        </RelativePanel>
+                    </ScrollViewer>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+        </Pivot>
+
+    </RelativePanel>
+</Page>

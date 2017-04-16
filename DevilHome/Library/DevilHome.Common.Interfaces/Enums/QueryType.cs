@@ -6,6 +6,8 @@ namespace DevilHome.Common.Interfaces.Enums
     {
         [StringValue("radio")]
         Radio,
+        [StringValue("power")]
+        Power,
         [StringValue("error")]
         Error
     }

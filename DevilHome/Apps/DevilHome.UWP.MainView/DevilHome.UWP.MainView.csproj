@@ -107,6 +107,7 @@
     <Compile Include="ViewModels\InternetRadioPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\RoomControlPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="Views\Busy.xaml.cs">
       <DependentUpon>Busy.xaml</DependentUpon>
@@ -119,6 +120,9 @@
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoomControlPage.xaml.cs">
+      <DependentUpon>RoomControlPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -136,7 +140,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Backgrounds\brushWallpaper.jpg" />
+    <Content Include="Assets\Backgrounds\mtsUIym.jpg" />
     <Content Include="Help.htm" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -179,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\RoomControlPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +216,14 @@
     <ProjectReference Include="..\..\Library\DevilDesireDevLib.Interfaces\DevilDesireDevLib.Interfaces.csproj">
       <Project>{0f3f5466-749a-4341-874c-a2ce92ad0fd6}</Project>
       <Name>DevilDesireDevLib.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\DevilHome.Common.Implementations\DevilHome.Common.Implementations.csproj">
+      <Project>{49827188-B768-4F92-B0FE-1EC92AC850BA}</Project>
+      <Name>DevilHome.Common.Implementations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\DevilHome.Common.Interfaces\DevilHome.Common.Interfaces.csproj">
+      <Project>{4BC113B2-3E08-4CA0-B09D-46A05BDCE2E8}</Project>
+      <Name>DevilHome.Common.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -6,9 +6,9 @@
     <x:Double x:Key="NormalMinWidth">521</x:Double>
     <x:Double x:Key="WideMinWidth">1200</x:Double>
 
-    <Color x:Key="CustomColor">SteelBlue</Color>
+    <Color x:Key="CustomColor">#7FFF0000</Color>
     <Color x:Key="ContrastColor">White</Color>
-    <Color x:Key="SystemAccentColor">SteelBlue</Color>
+    <Color x:Key="SystemAccentColor">#7FFF0000</Color>
 
     <ResourceDictionary.ThemeDictionaries>
 
@@ -67,6 +67,12 @@
 
                 -->
 
+                <Setter Property="NavButtonHoverBackground" Value="#7F585858" />
+                <Setter Property="HamburgerForeground" Value="White" />
+                <Setter Property="NavAreaBackground" Value="#7F7B0000" />
+                <Setter Property="NavButtonCheckedIndicatorBrush" Value="Transparent" />
+                
+                
                 <Setter Property="AccentColor" Value="{StaticResource CustomColor}" />
                 <Setter Property="VisualStateNarrowMinWidth" Value="{StaticResource NarrowMinWidth}" />
                 <Setter Property="VisualStateNormalMinWidth" Value="{StaticResource NormalMinWidth}" />

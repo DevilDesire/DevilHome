@@ -14,7 +14,7 @@
       mc:Ignorable="d">
 
     <Grid>
-        <Image x:Name="imgBackground" Source="ms-appx:///Assets/Backgrounds/brushWallpaper.jpg" Stretch="UniformToFill"/>
+        <Image x:Name="imgBackground" Source="ms-appx:///Assets/Backgrounds/mtsUIym.jpg" Stretch="UniformToFill"/>
         <Grid x:Name="mainGrid" Margin="100">
             <Controls:HamburgerMenu x:Name="MyHamburgerMenu" Margin="150" >
 
@@ -34,6 +34,12 @@
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Width="48" Height="48" Symbol="Audio"/>
                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Internet Radio" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:RoomControlPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Home"/>
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Raumsteuerung" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                 </Controls:HamburgerMenu.PrimaryButtons>
