@@ -1,20 +1,23 @@
-﻿using System;
+﻿using DevilHome.Common.Implementations.Values;
+using DevilHome.Common.Interfaces.Values;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Xaml.Navigation;
-using DevilHome.Common.Implementations.Values;
-using DevilHome.Common.Interfaces.Values;
 using Template10.Common;
-using Template10.Mvvm;
 using Template10.Services.NavigationService;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Navigation;
 
 namespace DevilHome.UWP.MainView.ViewModels
 {
     public class RoomControlPageViewModel : DevilHomeBase
     {
-        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode,
+            IDictionary<string, object> state)
         {
             SetBusy(true);
 
@@ -68,18 +71,8 @@ namespace DevilHome.UWP.MainView.ViewModels
                         }
                     };
 
-                    PoweroutletValues = new List<IPoweroutletValue>
-                    {
-                        new PoweroutletValue
-                        {
-                            Id = 1,
-                            Fk_Raum_Id = 1,
-                            DeviceCode = "A",
-                            HausCode = "54321",
-                            Name = "Ecklicht",
-                            Description = ""
-                        }
-                    };
+                    GetAndPoweroutletValues();
+                    GetAndAddSensorValues();
                 }
                 catch (Exception exception)
                 {
@@ -111,7 +104,7 @@ namespace DevilHome.UWP.MainView.ViewModels
 
         public List<IRoomValue> RoomList
         {
-            get { return m_RoomList;}
+            get { return m_RoomList; }
             set { Set(ref m_RoomList, value); }
         }
 
@@ -128,6 +121,27 @@ namespace DevilHome.UWP.MainView.ViewModels
 
         private ICommand m_SetOutletStatusOff;
         public ICommand SetOutletStatusOff => m_SetOutletStatusOff ?? (m_SetOutletStatusOff = new Executor(false));
+
+        private async void GetAndAddSensorValues()
+        {
+            try
+            {
+                string json = Network.LoadUrl($"{ConfigurationValues.BaseUrl}get/sensor", null, 10000);
+                List<SensorValue> sensorValues = JsonConvert.DeserializeObject<List<SensorValue>>(json);
+                RoomList.ForEach(x => x.SensorValues.AddRange(sensorValues.Where(y => y.Fk_Raum_Id == x.Id).ToList()));
+            }
+            catch (Exception)
+            {
+                await new MessageDialog("Beim Holen der Sensordaten ist ein Fehler aufgetreten!", "Sorry :(").ShowAsync();
+            }
+            
+        }
+
+        private void GetAndPoweroutletValues()
+        {
+
+        }
+
     }
 
     class Executor : DevilHomeBase, ICommand
@@ -143,13 +157,37 @@ namespace DevilHome.UWP.MainView.ViewModels
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             IPoweroutletValue poweroutletValue = parameter as IPoweroutletValue;
             string s = m_Status ? "1" : "0";
-            Network.LoadUrl($"{ConfigurationValues.BaseUrl}set/power?outlet={poweroutletValue.HausCode}-{poweroutletValue.DeviceCode}-{s}");
+
+            if (poweroutletValue != null && !m_Status && poweroutletValue.Name.StartsWith("PC"))
+            {
+                MessageDialog dialog = new MessageDialog($"Wollen sie \"{poweroutletValue.Name}\" wirklich ausschalten?", "Achtung");
+                dialog.Commands.Add(new UICommand("Ja"));
+                dialog.Commands.Add(new UICommand("Nein"));
+
+                IUICommand result = await dialog.ShowAsync();
+
+                if (result.Label == "Nein")
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                if (poweroutletValue != null)
+                    Network.LoadUrl($"{ConfigurationValues.BaseUrl}set/power?outlet={poweroutletValue.HausCode}-{poweroutletValue.DeviceCode}-{s}");
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.Message, "Fehler").ShowAsync();
+            }
         }
 
+        /// <summary>Tritt ein, wenn Änderungen auftreten, die sich auf die Ausführung des Befehls auswirken.</summary>
         public event EventHandler CanExecuteChanged;
     }
 }

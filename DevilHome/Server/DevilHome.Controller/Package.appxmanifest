@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap mp iot">
 
   <Identity
-    Name="DevilHome.WirelessPowerSwitchHeadless-uwp"
+    Name="DevilHome.Controller-uwp"
     Publisher="CN=bjoer"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="0c0d7f70-92c9-4976-a627-5a0610a260ea" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="855da459-b145-4ae7-9e98-be9aa851a4cf" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>DevilHome.WirelessPowerSwitchHeadless</DisplayName>
+    <DisplayName>DevilHome.Controller</DisplayName>
     <PublisherDisplayName>bjoer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -31,17 +31,17 @@
   <Applications>
     <Application Id="App">
       <uap:VisualElements
-        DisplayName="DevilHome.WirelessPowerSwitchHeadless"
+        DisplayName="DevilHome.Controller"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="DevilHome.WirelessPowerSwitchHeadless"
+        Description="DevilHome.Controller"
         BackgroundColor="transparent"
         AppListEntry="none">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="DevilHome.WirelessPowerSwitchHeadless.StartupTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="DevilHome.Controller.StartupTask">
           <BackgroundTasks>
             <iot:Task Type="startup" />
           </BackgroundTasks>

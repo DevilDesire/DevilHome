@@ -4,6 +4,8 @@ namespace DevilHome.Common.Interfaces.Enums
 {
     public enum FunctionType
     {
+        [StringValue("default")]
+        Default,
         [StringValue("music")]
         Music,
         [StringValue("volume")]

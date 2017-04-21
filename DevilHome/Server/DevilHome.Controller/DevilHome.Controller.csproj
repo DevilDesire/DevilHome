@@ -4,21 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{4CAC5096-6ED5-49F4-AA71-F46ED5C60BBA}</ProjectGuid>
+    <ProjectGuid>{A0E8E900-2FB5-4BE0-B49F-213AC11B0DA9}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DevilHome.WirelessPowerSwitchHeadless</RootNamespace>
-    <AssemblyName>DevilHome.WirelessPowerSwitchHeadless</AssemblyName>
+    <RootNamespace>DevilHome.Controller</RootNamespace>
+    <AssemblyName>DevilHome.Controller</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <AllowCrossPlatformRetargeting>false</AllowCrossPlatformRetargeting>
-    <PackageCertificateKeyFile>DevilHome.WirelessPowerSwitchHeadless_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>DevilHome.Controller_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackage>true</AppxPackage>
     <ContainsStartupTask>true</ContainsStartupTask>
   </PropertyGroup>
@@ -96,15 +96,17 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WirelessPowerSwitch.cs" />
+    <Compile Include="TemperatureController\Temperature.cs" />
+    <Compile Include="WirelessPowerSwitchController\WirelessPowerSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DevilHome.WirelessPowerSwitchHeadless_TemporaryKey.pfx" />
+    <None Include="DevilHome.Controller_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -130,14 +132,19 @@
       <InProject>false</InProject>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Library\DevilHome.Common.Implementations\DevilHome.Common.Implementations.csproj">
+    <ProjectReference Include="..\..\Library\DevilHome.Common.Implementations\DevilHome.Common.Implementations.csproj">
       <Project>{49827188-B768-4F92-B0FE-1EC92AC850BA}</Project>
       <Name>DevilHome.Common.Implementations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Library\DevilHome.Common.Interfaces\DevilHome.Common.Interfaces.csproj">
+    <ProjectReference Include="..\..\Library\DevilHome.Common.Interfaces\DevilHome.Common.Interfaces.csproj">
       <Project>{4BC113B2-3E08-4CA0-B09D-46A05BDCE2E8}</Project>
       <Name>DevilHome.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\Sensors.Dht\Sensors.Dht.vcxproj">
+      <Project>{2cd70a4f-9eed-4cda-9e07-1a2bd33b4976}</Project>
+      <Name>Sensors.Dht</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">

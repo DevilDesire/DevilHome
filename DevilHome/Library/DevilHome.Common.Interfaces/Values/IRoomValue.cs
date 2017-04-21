@@ -6,5 +6,6 @@ namespace DevilHome.Common.Interfaces.Values
     public interface IRoomValue : IBaseValue
     {
         List<IPoweroutletValue> PoweroutletValues { get; set; }
+        List<ISensorValue> SensorValues { get; set; }
     }
 }

@@ -8,10 +8,15 @@
     xmlns:controls="using:Template10.Controls"
     xmlns:uwp="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:viewModels="using:DevilHome.UWP.MainView.ViewModels"
+    xmlns:converter="using:DevilHome.Common.Implementations.Converters"
     mc:Ignorable="d">
     <Page.DataContext>
         <viewModels:RoomControlPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
+    <Page.Resources>
+        <converter:SensorIdToNameConverter x:Key="IdToNameConverter"/>
+        <converter:SensorIdToValueTypeConverter x:Key="IdToValueTypeConverter" />
+    </Page.Resources>
 
     <RelativePanel Background="#BF000000">
         <controls:PageHeader x:Name="pageHeader"
@@ -35,7 +40,7 @@
                 <DataTemplate>
                     <ScrollViewer VerticalScrollMode="Auto" ZoomMode="Disabled">
                         <RelativePanel>
-                            <uwp:Expander Header="Steckdosen" x:Name="expOutlet" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Tapped="expOutlet_Tapped" HorizontalContentAlignment="Stretch"  Margin="0,10">
+                            <uwp:Expander Header="Steckdosen" x:Name="expOutlet" IsExpanded="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Tapped="expOutlet_Tapped" HorizontalContentAlignment="Stretch"  Margin="0,10">
                                 <ListView ItemsSource="{Binding PoweroutletValues}" SelectionMode="None" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
@@ -53,10 +58,22 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </uwp:Expander>
-                            <uwp:Expander Header="Licht" x:Name="expLight" RelativePanel.Below="expOutlet" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
-
+                            <uwp:Expander Header="Sensoren" x:Name="expSensors" IsExpanded="True" RelativePanel.Below="expOutlet" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
+                                <uwp:AdaptiveGridView ItemHeight="150" DesiredWidth="150" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding SensorValues}">
+                                    <uwp:AdaptiveGridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Background="#5B0000FF" Margin="10" Height="150" Width="150">
+                                                <TextBlock Text="{Binding Fk_SensorTyp_Id, Converter={StaticResource IdToNameConverter}}" Margin="10" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                                <TextBlock HorizontalAlignment="Center" Margin="10">
+                                                        <Run Text="{Binding Value}" />
+                                                        <Run Text="{Binding Fk_SensorTyp_Id, Converter={StaticResource IdToValueTypeConverter}}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </uwp:AdaptiveGridView.ItemTemplate>
+                                </uwp:AdaptiveGridView>
                             </uwp:Expander>
-                            <uwp:Expander Header="Sensoren" x:Name="expSensors" RelativePanel.Below="expLight" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
+                            <uwp:Expander Header="Licht" x:Name="expLight" RelativePanel.Below="expSensors" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0,10">
 
                             </uwp:Expander>
                         </RelativePanel>

@@ -8,6 +8,8 @@ namespace DevilHome.Common.Interfaces.Enums
         Radio,
         [StringValue("power")]
         Power,
+        [StringValue("sensor")]
+        Sensor,
         [StringValue("error")]
         Error
     }

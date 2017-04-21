@@ -31,7 +31,7 @@ namespace DevilHome.Server
 
         private void ConnectionRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
-            m_Name = (string)args.Request.Message.First().Value;
+            m_Name = (string) args.Request.Message.First().Value;
         }
 
         public async void Start()
@@ -50,6 +50,7 @@ namespace DevilHome.Server
             listener.ConnectionReceived += async (sender, args) =>
             {
                 string exMessage = "Alles ok";
+                bool hasResponse = false;
                 try
                 {
                     StringBuilder request = new StringBuilder();
@@ -79,7 +80,18 @@ namespace DevilHome.Server
 
                         if (response != null && response.Status == AppServiceResponseStatus.Success)
                         {
-                            exMessage = response.Message.ToString();
+                            try
+                            {
+
+                                exMessage = response.Message.First().Value.ToString();
+                            }
+                            catch (Exception ex)
+                            {
+                                exMessage = $"{ex.Message}\r\nKonnte die Daten nicht abrufen :/";
+                            }
+                            
+                            
+                            hasResponse = true;
                         }
                         
                     }
@@ -98,10 +110,10 @@ namespace DevilHome.Server
                     using (Stream response = output.AsStreamForWrite())
                     {
                         string name = string.IsNullOrEmpty(m_Name) ? "Background" : m_Name;
-                        byte[] html = Encoding.UTF8.GetBytes($"<html><head><title>Background Message</title></head><body>Hello {name} from the background process!<br/>{exMessage}</body></html>");
+                        byte[] html = Encoding.UTF8.GetBytes(hasResponse ? exMessage : $"<html><head><title>Background Message</title></head><body>Hello {name} from the background process!<br/>{exMessage}</body></html>");
                         using (MemoryStream bodyStream = new MemoryStream(html))
                         {
-                            string header = $"HTTP/1.1 200 OK\r\nContent-Length: {bodyStream.Length}\r\nConnection: close\r\n\r\n";
+                            string header = $"HTTP/1.1 200 OK\r\nContent-type: application/json\r\nContent-Length: {bodyStream.Length}\r\nConnection: close\r\n\r\n";
                             byte[] headerArray = Encoding.UTF8.GetBytes(header);
                             await response.WriteAsync(headerArray, 0, headerArray.Length);
                             await bodyStream.CopyToAsync(response);
@@ -131,12 +143,15 @@ namespace DevilHome.Server
                     queryPathList.RemoveAt(0);
                 }
 
+                QueryType queryType = queryPathList[2].Parse<QueryType>();
+                RequestType reqType = queryPathList[1].Parse<RequestType>();
+
                 return new QueryValue
                 {
-                    QueryType = queryPathList[2].Parse<QueryType>(),
-                    RequestType = queryPathList[1].Parse<RequestType>(),
-                    FunctionType = query.Split('=')[0].Parse<FunctionType>(),
-                    Action = query.Split('=')[1]
+                    QueryType = queryType,
+                    RequestType = reqType,
+                    FunctionType = reqType == RequestType.Get ? FunctionType.Default : query.Split('=')[0].Parse<FunctionType>(),
+                    Action = reqType == RequestType.Get ? "" : query.Split('=')[1]
 
                 };
             }
