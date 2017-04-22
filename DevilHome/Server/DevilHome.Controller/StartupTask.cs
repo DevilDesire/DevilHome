@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Windows.ApplicationModel.Background;
+using DevilHome.Controller.Utils;
 
 namespace DevilHome.Controller
 {
@@ -20,12 +21,18 @@ namespace DevilHome.Controller
                 if (Controller == null)
                 {
                     Controller = new Controller();
+                    await Logger.InitializeLogger();
                     await Controller.Initialize();
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+
+                if (Logger.IsInitialized())
+                {
+                    await Logger.LogError(ex, PluginEnum.Controller);
+                }
             }
         }
 

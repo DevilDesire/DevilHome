@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
+using DevilHome.Controller.Utils;
 using RCSwitch;
 
 namespace DevilHome.Controller.WirelessPowerSwitchController
@@ -23,17 +24,22 @@ namespace DevilHome.Controller.WirelessPowerSwitchController
             return "";
         }
 
-        public Task ProcessingSetRequest(IQueryValue queryValue)
+        public async Task ProcessingSetRequest(IQueryValue queryValue)
         {
-            List<string> actionParameter = queryValue.Action.Split('-').ToList();
-            switch (queryValue.FunctionType)
+            try
             {
-                case FunctionType.Outlet:
-                    HandleOutlet(actionParameter);
-                    break;
+                List<string> actionParameter = queryValue.Action.Split('-').ToList();
+                switch (queryValue.FunctionType)
+                {
+                    case FunctionType.Outlet:
+                        HandleOutlet(actionParameter);
+                        break;
+                }
             }
-
-            return Task.CompletedTask;
+            catch (Exception ex)
+            {
+                await Logger.LogError(ex, PluginEnum.WirelessPowerSwitchController);
+            }
         }
 
         private void HandleOutlet(List<string> parameterList)

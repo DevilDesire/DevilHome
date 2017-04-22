@@ -6,6 +6,7 @@ using Windows.Devices.Gpio;
 using Windows.Foundation.Collections;
 using DevilHome.Common.Implementations.Values;
 using DevilHome.Common.Interfaces.Values;
+using DevilHome.Controller.Utils;
 using Newtonsoft.Json;
 using Sensors.Dht;
 
@@ -59,6 +60,7 @@ namespace DevilHome.Controller.TemperatureController
             }
             catch (Exception ex)
             {
+                await Logger.LogError(ex, PluginEnum.TemperatureController);
                 Debug.WriteLine(ex.Message);
             }
 

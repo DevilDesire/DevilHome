@@ -100,6 +100,8 @@
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureController\Temperature.cs" />
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\PluginEnum.cs" />
     <Compile Include="WirelessPowerSwitchController\WirelessPowerSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +134,9 @@
       <InProject>false</InProject>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Database\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\DevilHome.Common.Implementations\DevilHome.Common.Implementations.csproj">
       <Project>{49827188-B768-4F92-B0FE-1EC92AC850BA}</Project>
@@ -146,6 +150,11 @@
       <Project>{2cd70a4f-9eed-4cda-9e07-1a2bd33b4976}</Project>
       <Name>Sensors.Dht</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.18.0">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
