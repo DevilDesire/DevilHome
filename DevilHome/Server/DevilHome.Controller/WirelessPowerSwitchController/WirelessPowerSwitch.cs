@@ -14,9 +14,17 @@ namespace DevilHome.Controller.WirelessPowerSwitchController
         private static RCSwitchIO m_RcSwitch;
 
 
-        public void InitializeGpio()
+        public async void InitializeGpio()
         {
-            m_RcSwitch = new RCSwitchIO(5, -1);
+            try
+            {
+                m_RcSwitch = new RCSwitchIO(5, -1);
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogError(ex, PluginEnum.WirelessPowerSwitchController);
+            }
+            
         }
 
         public async Task<string> ProcessingGetRequest(IQueryValue queryValue)

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
-using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
 using DevilHome.Common.Implementations.Values;
 using DevilHome.Common.Interfaces.Values;
 using DevilHome.Controller.Utils;
@@ -15,11 +16,50 @@ namespace DevilHome.Controller.TemperatureController
     internal class Temperature
     {
         private static GpioPin m_GpioPin;
+        private double m_Temperature;
+        private double m_Humidity;
+        // ReSharper disable once NotAccessedField.Local
+        private Timer m_Timer;
 
-        public void InitializeGpio()
+        private DispatcherTimer m_DispatcherTimer;
+
+        public async void InitializeGpio()
         {
-            m_GpioPin = GpioController.GetDefault().OpenPin(13, GpioSharingMode.Exclusive);
+            try
+            {
+                m_GpioPin = GpioController.GetDefault().OpenPin(13, GpioSharingMode.Exclusive);
+                m_Timer = new Timer(GetTemperature, null, TimeSpan.Zero, new TimeSpan(0, 15, 0));
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogError(ex, PluginEnum.TemperatureController);
+            }
+            
+        }
 
+        private async void GetTemperature(object o)
+        {
+            try
+            {
+                if (m_GpioPin != null)
+                {
+                    Dht22 dht = new Dht22(m_GpioPin, GpioPinDriveMode.Input);
+                    bool isValid = false;
+
+                    while (!isValid)
+                    {
+                        DhtReading reader = await dht.GetReadingAsync().AsTask();
+                        m_Temperature = reader.Temperature;
+                        m_Humidity = reader.Humidity;
+                        isValid = reader.IsValid;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, PluginEnum.TemperatureController);
+            }
+            
         }
 
         public async Task<string> ProcessingGetRequest(IQueryValue queryValue)
@@ -27,36 +67,23 @@ namespace DevilHome.Controller.TemperatureController
             string response = null;
             try
             {
-                Dht22 dht = new Dht22(m_GpioPin, GpioPinDriveMode.Input);
-                double temperature = 0;
-                double humidity = 0;
-                bool isValid = false;
-
-                while (!isValid)
-                {
-                    DhtReading reader = await dht.GetReadingAsync().AsTask();
-                    temperature = reader.Temperature;
-                    humidity = reader.Humidity;
-                    isValid = reader.IsValid;
-                }
-
                 response = JsonConvert.SerializeObject(new List<ISensorValue>
                         {
                             new SensorValue
                             {
                                 Fk_Raum_Id = 1,
                                 Fk_SensorTyp_Id = 1,
-                                Value = Convert.ToDecimal(temperature)
+                                Value = Convert.ToDecimal(m_Temperature)
                             },
                             new SensorValue
                             {
                                 Fk_Raum_Id = 1,
                                 Fk_SensorTyp_Id = 2,
-                                Value = Convert.ToDecimal(humidity)
+                                Value = Convert.ToDecimal(m_Humidity)
                             }
                         });
 
-                Debug.WriteLine($"Temperatur: {temperature}°C\r\nLuftfeuchtigkeit: {humidity}%");
+                Debug.WriteLine($"Temperatur: {m_Temperature}°C\r\nLuftfeuchtigkeit: {m_Humidity}%");
             }
             catch (Exception ex)
             {
