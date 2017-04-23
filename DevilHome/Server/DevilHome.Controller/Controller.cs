@@ -14,6 +14,7 @@ using DevilHome.Controller.TemperatureController;
 using DevilHome.Controller.Utils;
 using DevilHome.Controller.WirelessPowerSwitchController;
 using Newtonsoft.Json;
+using DevilHome.Controller.Database;
 
 namespace DevilHome.Controller
 {
@@ -36,6 +37,7 @@ namespace DevilHome.Controller
                 InitializePlugins();
                 SetupAppService();
                 SetupGpio();
+                InitializeDatabase();
                 FinishInitialize();
             }).AsAsyncAction();
         }
@@ -50,6 +52,11 @@ namespace DevilHome.Controller
         {
             WirelessPowerSwitchController.InitializeGpio();
             TemperatureController.InitializeGpio();
+        }
+
+        private void InitializeDatabase()
+        {
+            DatabaseBase.InitDatabase();
         }
 
         private async void SetupAppService()
