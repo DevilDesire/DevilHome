@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="DevilHome.UWP.MainView.Views.Settings.LedColorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DevilHome.UWP.MainView.Views.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:mainView="using:DevilHome.UWP.MainView"
+    xmlns:libControls="using:DevilDesireDevLib.Implementation.Controls"
+    xmlns:viewModels="using:DevilHome.UWP.MainView.ViewModels.Settings"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:LedColorPageViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
+    <RelativePanel Background="#BF000000">
+        <controls:PageHeader x:Name="pageHeader"
+                             Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True"
+                             Text="LED Einstellungen" RelativePanel.Below="">
+        </controls:PageHeader>
+        <StackPanel x:Name="SliderPanel" Height="100"
+                    VerticalAlignment="Bottom"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignBottomWithPanel="True">
+            <TextBlock Text="Helligkeit"/>
+            <Slider x:Name="sBrightness" Value="100"/>
+        </StackPanel>
+        <libControls:ColorPicker x:Name="cpSelect" 
+                                   RelativePanel.Above="SliderPanel"
+                                   RelativePanel.Below="pageHeader" 
+                                   RelativePanel.AlignLeftWithPanel="True" 
+                                   RelativePanel.AlignRightWithPanel="True" />
+    </RelativePanel>
+</Page>

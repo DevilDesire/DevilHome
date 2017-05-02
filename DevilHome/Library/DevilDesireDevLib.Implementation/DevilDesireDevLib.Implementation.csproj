@@ -111,6 +111,7 @@
     <Compile Include="Controls\CircularProgressBar.xaml.cs">
       <DependentUpon>CircularProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColorPicker.cs" />
     <Compile Include="Controls\Expander.cs" />
     <Compile Include="Controls\MasterDetailsView.cs" />
     <Compile Include="Controls\PullToRefreshListView.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Networking\Network.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\GridUtils.cs" />
+    <Compile Include="Tools\LinearGdHelperClass.cs" />
     <EmbeddedResource Include="Properties\DevilDesireDevLib.Implementation.rd.xml" />
   </ItemGroup>
   <ItemGroup>

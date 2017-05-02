@@ -2,8 +2,8 @@
 
 namespace DevilHome.Database.Interfaces.Values
 {
-    public interface IDevicegroupValue : IBaseValue
+    public interface ISensorTyp : IBaseValue
     {
-        int Fk_Poweroutlet_Id { get; set; }
+        
     }
 }

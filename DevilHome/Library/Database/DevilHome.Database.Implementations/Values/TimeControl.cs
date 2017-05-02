@@ -4,7 +4,7 @@ using DevilHome.Database.Interfaces.Values;
 
 namespace DevilHome.Database.Implementations.Values
 {
-    public class TimeControlValue : BaseValue, ITimeControlValue
+    public class TimeControl : BaseValue, ITimeControl
     {
         public int Fk_Room_Id { get; set; }
         public int Fk_Poweroutlet_Id { get; set; }

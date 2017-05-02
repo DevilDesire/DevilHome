@@ -108,17 +108,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseValue.cs" />
+    <Compile Include="Base\DataBaseValue.cs" />
+    <Compile Include="Base\DbBaseTable.cs" />
     <Compile Include="Connection\Connection.cs" />
     <Compile Include="Engine\DatabaseEngineBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\DbDevice.cs" />
+    <Compile Include="Tables\DbDevicegroup.cs" />
+    <Compile Include="Tables\DbPoweroutlet.cs" />
     <Compile Include="Tables\DbRoom.cs" />
     <Compile Include="Tables\DbSensor.cs" />
-    <Compile Include="Values\DevicegroupValue.cs" />
-    <Compile Include="Values\DeviceValue.cs" />
-    <Compile Include="Values\PoweroutletValue.cs" />
-    <Compile Include="Values\RoomValue.cs" />
-    <Compile Include="Values\SensorValue.cs" />
-    <Compile Include="Values\TimeControlValue.cs" />
+    <Compile Include="Tables\DbSensorData.cs" />
+    <Compile Include="Tables\DbSensorTyp.cs" />
+    <Compile Include="Values\Devicegroup.cs" />
+    <Compile Include="Values\Device.cs" />
+    <Compile Include="Values\Poweroutlet.cs" />
+    <Compile Include="Values\Room.cs" />
+    <Compile Include="Values\Sensor.cs" />
+    <Compile Include="Values\SensorData.cs" />
+    <Compile Include="Values\SensorTyp.cs" />
+    <Compile Include="Values\TimeControl.cs" />
     <EmbeddedResource Include="Properties\DevilHome.Database.Implementations.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@ using DevilHome.Database.Interfaces.Base;
 
 namespace DevilHome.Database.Interfaces.Values
 {
-    public interface ITimeControlValue : IBaseValue
+    public interface ITimeControl : IBaseValue
     {
         int Fk_Room_Id { get; set; }
         int Fk_Poweroutlet_Id { get; set; }

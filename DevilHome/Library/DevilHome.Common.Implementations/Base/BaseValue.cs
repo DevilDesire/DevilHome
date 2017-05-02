@@ -1,4 +1,5 @@
-﻿using DevilHome.Common.Interfaces.Base;
+﻿using System;
+using DevilHome.Common.Interfaces.Base;
 
 namespace DevilHome.Common.Implementations.Base
 {

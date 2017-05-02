@@ -151,8 +151,7 @@ namespace DevilHome.Server
                     QueryType = queryType,
                     RequestType = reqType,
                     FunctionType = reqType == RequestType.Get ? FunctionType.Default : query.Split('=')[0].Parse<FunctionType>(),
-                    Action = reqType == RequestType.Get ? "" : query.Split('=')[1]
-
+                    Action = query.Split('=').Length == 2 ? query.Split('=')[1] : query.Split('=')[0]
                 };
             }
             catch (Exception ex)

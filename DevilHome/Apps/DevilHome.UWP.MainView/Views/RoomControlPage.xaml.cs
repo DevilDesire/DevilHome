@@ -26,10 +26,5 @@ namespace DevilHome.UWP.MainView.Views
         {
             this.InitializeComponent();
         }
-
-        private void expOutlet_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
     }
 }

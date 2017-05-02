@@ -96,8 +96,11 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\StructureMapInitializer.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="ControllerBase.cs" />
     <Compile Include="Database\DatabaseBase.cs" />
+    <Compile Include="Database\IDatabaseBase.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureController\Temperature.cs" />

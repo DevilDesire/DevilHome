@@ -9,6 +9,7 @@
     <Color x:Key="CustomColor">#7FFF0000</Color>
     <Color x:Key="ContrastColor">White</Color>
     <Color x:Key="SystemAccentColor">#7FFF0000</Color>
+    <SolidColorBrush x:Key="DefaultPageBackground" Color="#BF000000" />
 
     <ResourceDictionary.ThemeDictionaries>
 
@@ -18,6 +19,7 @@
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
+            <SolidColorBrush x:Key="DefaultPageBackground" Color="#BF000000" />
 
             <Style TargetType="controls:HamburgerMenu">
                 <Setter Property="AccentColor" Value="{StaticResource CustomColor}" />
@@ -44,6 +46,7 @@
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
+            <SolidColorBrush x:Key="DefaultPageBackground" Color="#BF000000" />
 
             <Style TargetType="controls:HamburgerMenu">
 
@@ -97,6 +100,7 @@
 
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="Black" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="White" />
+            <SolidColorBrush x:Key="DefaultPageBackground" Color="#BF000000" />
 
             <Style TargetType="controls:HamburgerMenu">
                 <Setter Property="PaneBorderThickness" Value="0" />

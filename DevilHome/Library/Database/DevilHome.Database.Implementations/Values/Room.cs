@@ -3,7 +3,7 @@ using DevilHome.Database.Interfaces.Values;
 
 namespace DevilHome.Database.Implementations.Values
 {
-    public class RoomValue : BaseValue, IRoomValue
+    public class Room : BaseValue, IRoom
     {
     }
 }

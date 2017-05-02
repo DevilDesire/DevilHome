@@ -4,7 +4,7 @@ namespace DevilHome.Common.Interfaces.Enums
 {
     public enum SensorEnum
     {
-        [StringValue("Temperatur")]
+        [StringValue("Temperature")]
         Temperatur = 1,
         [StringValue("Humidity")]
         Humidity = 2

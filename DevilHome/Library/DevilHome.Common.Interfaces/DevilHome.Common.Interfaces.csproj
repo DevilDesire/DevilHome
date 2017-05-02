@@ -121,6 +121,7 @@
     <Compile Include="Values\IPoweroutletValue.cs" />
     <Compile Include="Values\IQueryValue.cs" />
     <Compile Include="Values\IRoomValue.cs" />
+    <Compile Include="Values\ISensorDataValue.cs" />
     <Compile Include="Values\ISensorValue.cs" />
     <Compile Include="Values\ITimeControlValue.cs" />
     <EmbeddedResource Include="Properties\DevilHome.Common.Interfaces.rd.xml" />

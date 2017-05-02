@@ -7,14 +7,26 @@ namespace DevilHome.Database.Implementations.Tables
 {
     public class DbRoom : DatabaseEngineBase
     {
-        public List<IRoomValue> GetAllValues()
+        public List<IRoom> GetAllValues()
         {
-            return new List<IRoomValue>(GetAllValues<RoomValue>());
+            return new List<IRoom>(GetAllValues<Room>());
         }
         
-        public IRoomValue GetValueById(int id)
+        public IRoom GetValueById(int id)
         {
-            return GetValueById<RoomValue>(id);
+            return GetValueById<Room>(id);
         }
+
+        public void Insert(Room room) 
+        {
+            Insert<Room>(room);
+        }
+
+        public int GetIdByName(string typeName)
+        {
+            Room responseValue = GetValueByName<Room>(typeName);
+            return responseValue.Id;
+        }
+
     }
 }

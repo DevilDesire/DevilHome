@@ -2,7 +2,7 @@
 
 namespace DevilHome.Database.Interfaces.Values
 {
-    public interface IDeviceValue : IBaseValue
+    public interface IDevice : IBaseValue
     {
         int Fk_Devicegroup_Id { get; set; }
     }

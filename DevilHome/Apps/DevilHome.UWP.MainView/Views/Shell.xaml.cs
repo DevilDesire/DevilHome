@@ -32,7 +32,7 @@ namespace DevilHome.UWP.MainView.Views
         {
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
-                mainGrid.Margin = new Thickness(20d);
+                mainGrid.Margin = new Thickness(0d);
             }
         }
 

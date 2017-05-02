@@ -7,6 +7,6 @@ namespace DevilHome.Common.Implementations.Values
     {
         public int Fk_SensorTyp_Id { get; set; }
         public int Fk_Raum_Id { get; set; }
-        public decimal Value { get; set; }
+        public double LastValue { get; set; }
     }
 }

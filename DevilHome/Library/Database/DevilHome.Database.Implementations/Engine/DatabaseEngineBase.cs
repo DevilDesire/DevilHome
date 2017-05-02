@@ -42,6 +42,30 @@ namespace DevilHome.Database.Implementations.Engine
             return returnValue;
         }
 
+        protected T GetValueByName<T>(string name) where T : class, new()
+        {
+            T retVal;
+            using (SQLiteConnection conn = DbConnection)
+            {
+                retVal = conn.Query<T>($"select * from {typeof(T).Name} where Name = '{name}'").FirstOrDefault();
+            }
+
+            return retVal;
+        }
+
+        protected T GetIdBySensorTypNameRoomName<T>(string sensorTyp, string roomName) where T : class, new()
+        {
+            T retVal;
+
+            using (SQLiteConnection conn = DbConnection)
+            {
+                retVal = conn.Query<T>($"select * from {typeof(T).Name} where Fk_SensorTyp_Id = (select Id from SensorTyp where Name = '{sensorTyp}') " +
+                                       $"and Fk_Raum_Id = (select Id from Room where Name = '{roomName}')").FirstOrDefault();
+            }
+
+            return retVal;
+        }
+
         protected void Insert<T>(T value) where T : class, new()
         {
             if (DatabaseIsInitialized())

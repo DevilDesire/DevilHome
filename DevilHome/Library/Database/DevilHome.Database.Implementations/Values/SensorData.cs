@@ -3,8 +3,9 @@ using DevilHome.Database.Interfaces.Values;
 
 namespace DevilHome.Database.Implementations.Values
 {
-    public class DeviceValue : BaseValue, IDeviceValue
+    public class SensorData : DatabaseValue, ISensorData
     {
-        public int Fk_Devicegroup_Id { get; set; }
+        public int Fk_Sensor_Id { get; set; }
+        public double Value { get; set; }
     }
 }

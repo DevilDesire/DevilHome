@@ -11,25 +11,17 @@
       xmlns:views="using:DevilHome.UWP.MainView.Views"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       xmlns:behaviors1="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+      xmlns:settings="using:DevilHome.UWP.MainView.Views.Settings"
+      xmlns:dialogs="using:DevilHome.UWP.MainView.Views.Dialogs"
       mc:Ignorable="d">
 
     <Grid>
-        <Image x:Name="imgBackground" Source="ms-appx:///Assets/Backgrounds/mtsUIym.jpg" Stretch="UniformToFill"/>
+        <Image x:Name="imgBackground" Source="ms-appx:///Assets/Backgrounds/schaltkreis.png" Stretch="UniformToFill"/>
         <Grid x:Name="mainGrid" Margin="100">
             <Controls:HamburgerMenu x:Name="MyHamburgerMenu" Margin="150" >
 
                 <Controls:HamburgerMenu.PrimaryButtons>
                     <!--  mainpage button  -->
-                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48"
-                                    Height="48"
-                                    Symbol="Home" />
-                            <TextBlock Margin="12,0,0,0"
-                                   VerticalAlignment="Center"
-                                   Text="Home" />
-                        </StackPanel>
-                    </Controls:HamburgerButtonInfo>
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:InternetRadioPage">
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Width="48" Height="48" Symbol="Audio"/>
@@ -40,6 +32,12 @@
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Width="48" Height="48" Symbol="Home"/>
                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Raumsteuerung" />
+                        </StackPanel>
+                    </Controls:HamburgerButtonInfo>
+                    <Controls:HamburgerButtonInfo ClearHistory="True" PageType="settings:LedColorPage">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Width="48" Height="48" Symbol="Highlight"/>
+                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="LED Test" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                 </Controls:HamburgerMenu.PrimaryButtons>

@@ -2,7 +2,7 @@
 
 namespace DevilHome.Database.Interfaces.Values
 {
-    public interface IRoomValue : IBaseValue
+    public interface IRoom : IBaseValue
     {
     }
 }

@@ -10,15 +10,15 @@ using Windows.Foundation.Collections;
 using DevilHome.Common.Implementations.Values;
 using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
+using DevilHome.Controller.Configuration;
 using DevilHome.Controller.TemperatureController;
 using DevilHome.Controller.Utils;
 using DevilHome.Controller.WirelessPowerSwitchController;
 using Newtonsoft.Json;
-using DevilHome.Controller.Database;
 
 namespace DevilHome.Controller
 {
-    internal class Controller
+    internal class Controller : ControllerBase
     {
         #region Plugins
 
@@ -34,10 +34,11 @@ namespace DevilHome.Controller
         {
             return Task.Run(() =>
             {
+                StructureMapInitializer.Init();
+                InitializeDatabase();
                 InitializePlugins();
                 SetupAppService();
                 SetupGpio();
-                InitializeDatabase();
                 FinishInitialize();
             }).AsAsyncAction();
         }

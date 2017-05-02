@@ -10,14 +10,16 @@ using System.Windows.Input;
 using Template10.Common;
 using Template10.Services.NavigationService;
 using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Template10.Mvvm;
 
 namespace DevilHome.UWP.MainView.ViewModels
 {
     public class RoomControlPageViewModel : DevilHomeBase
     {
-        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode,
-            IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             SetBusy(true);
 
@@ -67,6 +69,30 @@ namespace DevilHome.UWP.MainView.ViewModels
                         {
                             Id = 2,
                             Name = "Schlafzimmer",
+                            Description = ""
+                        },
+                        new RoomValue
+                        {
+                            Id = 3,
+                            Name = "Flur",
+                            Description = ""
+                        },
+                        new RoomValue
+                        {
+                            Id = 4,
+                            Name = "Gamingroom",
+                            Description = ""
+                        },
+                        new RoomValue
+                        {
+                            Id = 5,
+                            Name = "Küche",
+                            Description = ""
+                        },
+                        new RoomValue
+                        {
+                            Id = 6,
+                            Name = "Bad",
                             Description = ""
                         }
                     };
@@ -121,6 +147,13 @@ namespace DevilHome.UWP.MainView.ViewModels
 
         private ICommand m_SetOutletStatusOff;
         public ICommand SetOutletStatusOff => m_SetOutletStatusOff ?? (m_SetOutletStatusOff = new Executor(false));
+
+        private ICommand m_GoToDiagrammView;
+
+        public ICommand GoToDiagrammView
+            =>
+            m_GoToDiagrammView ??
+            (m_GoToDiagrammView = new DelegateCommand<object>(a => NavigationService.Navigate(typeof(Views.Dialogs.SensorDataDiagrammPage), a)));
 
         private async void GetAndAddSensorValues()
         {

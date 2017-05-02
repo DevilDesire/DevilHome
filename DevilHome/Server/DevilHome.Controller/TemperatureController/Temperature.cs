@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.UI.Xaml;
 using DevilHome.Common.Implementations.Values;
+using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
 using DevilHome.Controller.Utils;
+using DevilHome.Database.Implementations.Tables;
+using DevilHome.Database.Interfaces.Values;
 using Newtonsoft.Json;
 using Sensors.Dht;
 
 namespace DevilHome.Controller.TemperatureController
 {
-    internal class Temperature
+    internal class Temperature : ControllerBase
     {
         private static GpioPin m_GpioPin;
         private double m_Temperature;
@@ -53,6 +56,9 @@ namespace DevilHome.Controller.TemperatureController
                         m_Humidity = reader.Humidity;
                         isValid = reader.IsValid;
                     }
+
+                    DatabaseBase.InsertSensorValue(SensorEnum.Temperatur.GetStringValue(), "Wohnzimmer", "Temperatur", m_Temperature);
+                    DatabaseBase.InsertSensorValue(SensorEnum.Humidity.GetStringValue(), "Wohnzimmer", "Luftfeuchtigkeit", m_Humidity);
                 }
             }
             catch (Exception ex)
@@ -65,23 +71,36 @@ namespace DevilHome.Controller.TemperatureController
         public async Task<string> ProcessingGetRequest(IQueryValue queryValue)
         {
             string response = null;
+
             try
             {
-                response = JsonConvert.SerializeObject(new List<ISensorValue>
+                if (string.IsNullOrEmpty(queryValue.Action))
+                {
+                    response = JsonConvert.SerializeObject(new List<ISensorValue>
                         {
                             new SensorValue
                             {
+                                Id = 1,
                                 Fk_Raum_Id = 1,
                                 Fk_SensorTyp_Id = 1,
-                                Value = Convert.ToDecimal(m_Temperature)
+                                LastValue = DbSensorData.GetLastValueBySensorId(1)
                             },
                             new SensorValue
                             {
+                                Id = 2,
                                 Fk_Raum_Id = 1,
                                 Fk_SensorTyp_Id = 2,
-                                Value = Convert.ToDecimal(m_Humidity)
+                                LastValue = DbSensorData.GetLastValueBySensorId(2)
                             }
                         });
+                }
+                else
+                {
+                    List<ISensorData> values = DbSensorData.GetValuesBySensorId(Convert.ToInt16(queryValue.Action));
+                    List<ISensorDataValue> convertedValues = new List<ISensorDataValue>();
+                    values.ForEach(x => convertedValues.Add(new SensorDataValue{Date = Convert.ToDateTime(x.Date), Value = x.Value, Fk_Sensor_Id = x.Fk_Sensor_Id}));
+                    response = JsonConvert.SerializeObject(convertedValues);
+                }
 
                 Debug.WriteLine($"Temperatur: {m_Temperature}°C\r\nLuftfeuchtigkeit: {m_Humidity}%");
             }
