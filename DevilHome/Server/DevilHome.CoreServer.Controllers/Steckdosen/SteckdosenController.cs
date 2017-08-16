@@ -15,12 +15,12 @@ namespace DevilHome.CoreServer.Controllers.Steckdosen
     [RestController(InstanceCreationType.Singleton)]
     public class SteckdosenController : ControllersBase
     {
-        private static RCSwitchIO m_RcSwitch;
+        private static RCSwitchIO _rcSwitch;
 
         public SteckdosenController()
         {
             Configure();
-            m_RcSwitch = new RCSwitchIO(5, -1);
+            _rcSwitch = new RCSwitchIO(5, -1);
             DatabaseBase.InitDatabase();
         }
 
@@ -37,7 +37,7 @@ namespace DevilHome.CoreServer.Controllers.Steckdosen
 
             try
             {
-                m_RcSwitch.Switch(homeCode, deviceCode, status == "on");
+                _rcSwitch.Switch(homeCode, deviceCode, status == "on");
             }
             catch (Exception)
             {
