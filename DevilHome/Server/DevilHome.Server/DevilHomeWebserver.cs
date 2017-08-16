@@ -40,7 +40,6 @@ namespace DevilHome.Server
             try
             {
                 await listener.BindServiceNameAsync(ConfigurationValues.Port);
-
             }
             catch (Exception ex)
             {
@@ -113,7 +112,7 @@ namespace DevilHome.Server
                         byte[] html = Encoding.UTF8.GetBytes(hasResponse ? exMessage : $"<html><head><title>Background Message</title></head><body>Hello {name} from the background process!<br/>{exMessage}</body></html>");
                         using (MemoryStream bodyStream = new MemoryStream(html))
                         {
-                            string header = $"HTTP/1.1 200 OK\r\nContent-type: application/json\r\nContent-Length: {bodyStream.Length}\r\nConnection: close\r\n\r\n";
+                            string header = $"HTTP/1.1 200 OK\r\nContent-type: application/json\r\nAccess-Control-Allow-Origin: *\r\nContent-Length: {bodyStream.Length}\r\nConnection: close\r\n\r\n";
                             byte[] headerArray = Encoding.UTF8.GetBytes(header);
                             await response.WriteAsync(headerArray, 0, headerArray.Length);
                             await bodyStream.CopyToAsync(response);
@@ -151,6 +150,7 @@ namespace DevilHome.Server
                     QueryType = queryType,
                     RequestType = reqType,
                     FunctionType = reqType == RequestType.Get ? FunctionType.Default : query.Split('=')[0].Parse<FunctionType>(),
+                    GetModifier = reqType == RequestType.Get ? query.Split('=')[0] : "",
                     Action = query.Split('=').Length == 2 ? query.Split('=')[1] : query.Split('=')[0]
                 };
             }

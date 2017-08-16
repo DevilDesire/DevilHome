@@ -7,6 +7,7 @@ namespace DevilHome.Common.Interfaces.Values
         QueryType QueryType { get; set; }
         RequestType RequestType { get; set; }
         FunctionType FunctionType { get; set; }
+        string GetModifier { get; set; }
         string Action { get; set; }
     }
 }

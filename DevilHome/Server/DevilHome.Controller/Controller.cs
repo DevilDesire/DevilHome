@@ -10,6 +10,7 @@ using Windows.Foundation.Collections;
 using DevilHome.Common.Implementations.Values;
 using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
+using DevilHome.Controller.ApiV2;
 using DevilHome.Controller.Configuration;
 using DevilHome.Controller.TemperatureController;
 using DevilHome.Controller.Utils;
@@ -20,13 +21,6 @@ namespace DevilHome.Controller
 {
     internal class Controller : ControllerBase
     {
-        #region Plugins
-
-        protected WirelessPowerSwitch WirelessPowerSwitchController;
-        protected Temperature TemperatureController;
-
-        #endregion
-
         private AppServiceConnection m_Connection;
 
 
@@ -47,6 +41,7 @@ namespace DevilHome.Controller
         {
             WirelessPowerSwitchController = new WirelessPowerSwitch();
             TemperatureController = new Temperature();
+            ApiHandler = new ApiHandler();
         }
 
         private void SetupGpio()
@@ -89,8 +84,7 @@ namespace DevilHome.Controller
             await Logger.LogInformation("DevilHome is successfully initialized", PluginEnum.Controller);
         }
 
-        private async void ConnectionOnRequestReceived(AppServiceConnection sender,
-            AppServiceRequestReceivedEventArgs args)
+        private async void ConnectionOnRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
             AppServiceDeferral messageDeferral = args.GetDeferral();
             try
@@ -101,7 +95,7 @@ namespace DevilHome.Controller
                 switch (queryValue.RequestType)
                 {
                     case RequestType.Get:
-                        string response = await HandleGet(queryValue);
+                        string response = await ApiHandler.HandleGet(queryValue);
                         await args.Request.SendResponseAsync(new ValueSet
                         {
                             new KeyValuePair<string, object>("Query", response)
@@ -121,28 +115,6 @@ namespace DevilHome.Controller
             {
                 messageDeferral?.Complete();
             }
-        }
-
-        private async Task<string> HandleGet(IQueryValue queryValue)
-        {
-            try
-            {
-                switch (queryValue.QueryType)
-                {
-                    case QueryType.Power:
-                        return await WirelessPowerSwitchController.ProcessingGetRequest(queryValue);
-                    case QueryType.Sensor:
-                        return await TemperatureController.ProcessingGetRequest(queryValue);
-                    default:
-                        return "";
-                }
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogError(ex, PluginEnum.Controller);
-            }
-
-            return "";
         }
 
         private async void HandleSet(IQueryValue queryValue)

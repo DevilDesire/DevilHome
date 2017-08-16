@@ -1,13 +1,16 @@
-﻿using DevilHome.Database.Implementations.Engine;
+﻿using System.Collections.Generic;
+using DevilHome.Database.Implementations.Base;
 using DevilHome.Database.Implementations.Values;
+using DevilHome.Database.Interfaces.Tables;
+using DevilHome.Database.Interfaces.Values;
 
 namespace DevilHome.Database.Implementations.Tables
 {
-    public class DbPoweroutlet : DatabaseEngineBase
+    public class DbPoweroutlet : DbBaseTable<Poweroutlet, IPoweroutlet>, IDbPoweroutlet
     {
-        public void Insert(Poweroutlet poweroutlet)
+        public List<IPoweroutlet> GetValuesByRoomId(int roomId)
         {
-            Insert<Poweroutlet>(poweroutlet);
+            return GetValuesByFkNameAndId("Fk_Raum_Id", roomId);
         }
     }
 }

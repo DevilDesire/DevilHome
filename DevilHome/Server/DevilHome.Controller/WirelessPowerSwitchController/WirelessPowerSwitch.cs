@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
+using DevilHome.Controller.ApiV2.Poweroutlet;
 using DevilHome.Controller.Utils;
 using RCSwitch;
 
@@ -36,11 +37,13 @@ namespace DevilHome.Controller.WirelessPowerSwitchController
         {
             try
             {
-                List<string> actionParameter = queryValue.Action.Split('-').ToList();
                 switch (queryValue.FunctionType)
                 {
                     case FunctionType.Outlet:
-                        HandleOutlet(actionParameter);
+                        HandleOutlet(queryValue.Action.Split('-').ToList());
+                        break;
+                    case FunctionType.Create:
+                        new PoweroutletSetter().CreateNewPoweroutlet(queryValue);
                         break;
                 }
             }

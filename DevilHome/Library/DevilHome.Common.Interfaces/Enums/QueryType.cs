@@ -11,6 +11,8 @@ namespace DevilHome.Common.Interfaces.Enums
         [StringValue("sensor")]
         Sensor,
         [StringValue("error")]
-        Error
+        Error,
+        [StringValue("room")]
+        Room
     }
 }

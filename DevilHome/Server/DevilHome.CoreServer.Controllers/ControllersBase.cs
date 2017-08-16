@@ -1,29 +1,32 @@
-﻿using DevilHome.Controller.ApiV2;
-using DevilHome.Controller.ApiV2.Poweroutlet;
-using DevilHome.Controller.Database;
-using DevilHome.Controller.TemperatureController;
-using DevilHome.Controller.WirelessPowerSwitchController;
+﻿using DevilHome.CoreServer.Controllers.Database;
 using DevilHome.Database.Implementations.Tables;
 using DevilHome.Database.Interfaces.Tables;
 using Newtonsoft.Json;
 using StructureMap;
+using IDatabaseBase = DevilHome.CoreServer.Controllers.Database.IDatabaseBase;
 
-namespace DevilHome.Controller
+namespace DevilHome.CoreServer.Controllers
 {
-    internal class ControllerBase
+    public class ControllersBase
     {
         #region Init
 
         protected static IContainer Container;
-
+        private static bool _isInitialized;
         public static void Configure()
         {
-            Container = new Container(x =>
+            if (!_isInitialized)
             {
-                x.For<IDbSensorData>().Use<DbSensorData>();
-                x.For<IDatabaseBase>().Use<DatabaseBase>();
-                x.For<IDbPoweroutlet>().Use<DbPoweroutlet>();
-            });
+                Container = new Container(x =>
+                {
+                    x.For<IDbSensorData>().Use<DbSensorData>();
+                    x.For<IDatabaseBase>().Use<DatabaseBase>();
+                    //x.For<IDbSensor>().Use<DbSensor>();
+                    x.For<IDbPoweroutlet>().Use<DbPoweroutlet>();
+                });
+
+                _isInitialized = true;
+            }
         }
 
         #endregion
@@ -32,10 +35,6 @@ namespace DevilHome.Controller
         protected IDbSensorData DbSensorData => Container.GetInstance<IDbSensorData>();
         protected IDbSensor DbSensor => Container.GetInstance<IDbSensor>();
         protected IDbPoweroutlet DbPoweroutlet => Container.GetInstance<IDbPoweroutlet>();
-
-        protected WirelessPowerSwitch WirelessPowerSwitchController { get; set; }
-        protected Temperature TemperatureController { get; set; }
-        protected ApiHandler ApiHandler { get; set; }
 
         protected string ConvertToJson<T>(T objectToConvert)
         {

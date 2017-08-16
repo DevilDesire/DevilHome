@@ -9,7 +9,6 @@ using DevilHome.Common.Implementations.Values;
 using DevilHome.Common.Interfaces.Enums;
 using DevilHome.Common.Interfaces.Values;
 using DevilHome.Controller.Utils;
-using DevilHome.Database.Implementations.Tables;
 using DevilHome.Database.Interfaces.Values;
 using Newtonsoft.Json;
 using Sensors.Dht;

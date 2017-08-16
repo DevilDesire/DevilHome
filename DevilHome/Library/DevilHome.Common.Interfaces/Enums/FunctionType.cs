@@ -13,6 +13,12 @@ namespace DevilHome.Common.Interfaces.Enums
         [StringValue("outlet")]
         Outlet,
         [StringValue("light")]
-        Light
+        Light,
+        [StringValue("create")]
+        Create,
+        [StringValue("edit")]
+        Edit,
+        [StringValue("delete")]
+        Delete
     }
 }
