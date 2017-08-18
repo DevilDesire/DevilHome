@@ -9,5 +9,6 @@ namespace DevilHome.Database.Implementations.Values
         public int Fk_Raum_Id { get; set; }
         public string HausCode { get; set; }
         public string DeviceCode { get; set; }
+        public bool Secure { get; set; }
     }
 }

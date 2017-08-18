@@ -1,4 +1,5 @@
-﻿using DevilHome.CoreServer.Controllers.Database;
+﻿using System;
+using DevilHome.CoreServer.Controllers.Database;
 using DevilHome.Database.Implementations.Tables;
 using DevilHome.Database.Interfaces.Tables;
 using Newtonsoft.Json;
@@ -35,6 +36,7 @@ namespace DevilHome.CoreServer.Controllers
         protected IDbSensorData DbSensorData => Container.GetInstance<IDbSensorData>();
         protected IDbSensor DbSensor => Container.GetInstance<IDbSensor>();
         protected IDbPoweroutlet DbPoweroutlet => Container.GetInstance<IDbPoweroutlet>();
+        protected DateTime Now = DateTime.Now;
 
         protected string ConvertToJson<T>(T objectToConvert)
         {

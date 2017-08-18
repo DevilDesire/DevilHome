@@ -8,5 +8,6 @@ namespace DevilHome.Database.Interfaces.Values
         int Fk_Raum_Id { get; set;}
         string HausCode { get; set; }
         string DeviceCode { get; set; }
+        bool Secure { get; set; }
     }
 }
