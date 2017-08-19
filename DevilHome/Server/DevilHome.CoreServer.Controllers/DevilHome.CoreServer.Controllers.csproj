@@ -150,10 +150,6 @@
       <Project>{4BC113B2-3E08-4CA0-B09D-46A05BDCE2E8}</Project>
       <Name>DevilHome.Common.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DevilHome.Controller\DevilHome.Controller.csproj">
-      <Project>{A0E8E900-2FB5-4BE0-B49F-213AC11B0DA9}</Project>
-      <Name>DevilHome.Controller</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

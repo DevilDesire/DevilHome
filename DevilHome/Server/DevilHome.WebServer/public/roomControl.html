@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Raumsteuerung</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="css/site.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" />
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"
+              asp-fallback-href="/bootstrap/css/bootstrap.min.css" />
+	<script src="/js/roomControl.js"></script>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../"><b>DEVIL</b>Home</a>
+          <button class="navbar-toggle collapsed" aria-expanded="false" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" id="themes" href="roomControl.html" data-toggle="dropdown">Raumsteuerung<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="roomControl.html">Übersicht</a></li>
+                <li class="divider"></li>
+                <li><a href="roomControl.html#Wohnzimmer">Wohnzimmer</a></li>
+                <li><a href="roomControl.html#Schlafzimmer">Schlafzimmer</a></li>
+                <li><a href="roomControl.html#Flur">Flur</a></li>
+                <li><a href="roomControl.html#Arbeitszimmer">Arbeitszimmer</a></li>
+                <li><a href="roomControl.html#Küche">Küche</a></li>
+                <li><a href="roomControl.html#Bad">Bad</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="dropdown-toggle" id="themes" href="/sensoren.html" data-toggle="dropdown">Temperatur/Luftfeuchtigkeit<span class="caret"></span></a>
+			  <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="sensoren.html">Übersicht</a></li>
+                <li class="divider"></li>
+                <li><a href="sensoren.html#Wohnzimmer">Wohnzimmer</a></li>
+                <li><a href="sensoren.html#Schlafzimmer">Schlafzimmer</a></li>
+                <li><a href="sensoren.html#Flur">Flur</a></li>
+                <li><a href="sensoren.html#Arbeitszimmer">Arbeitszimmer</a></li>
+                <li><a href="sensoren.html#Küche">Küche</a></li>
+                <li><a href="sensoren.html#Bad">Bad</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" id="download" href="#" data-toggle="dropdown">Notizen <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+                <li><a href="http://jsfiddle.net/bootswatch/jmg3gykg/">Open Sandbox</a></li>
+                <li class="divider"></li>
+                <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                <li class="divider"></li>
+                <li><a href="./variables.less">variables.less</a></li>
+                <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                <li class="divider"></li>
+                <li><a href="./_variables.scss">_variables.scss</a></li>
+                <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/admin" target="_blank">Administration</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+	
+	<div class="modal" id="secureOff" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button class="close" aria-hidden="true" type="button" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Achtung!</h4>
+		  </div>
+		  <div class="modal-body">
+			<p class="modalSteckdosenName">One fine body…</p>
+		  </div>
+		  <div class="modal-footer">
+			<button class="btn btn-default btn-lg" type="button" data-dismiss="modal">Nein</button>
+			<button class="btn btn-primary btn-lg" id="sendOffOk" type="button" data-dismiss="modal">Ja</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<p> </p>
+	<div class="container">
+
+		<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+			<li class="active"><a href="#livingroom" data-toggle="tab">Wohnzimmer</a></li>
+			<li class=""><a href="#restroom" data-toggle="tab">Schlafzimmer</a></li>
+			<li class=""><a href="#workingroom" data-toggle="tab">Arbeitszimmer</a></li>
+			<li class=""><a href="#floorroom" data-toggle="tab">Flur</a></li>
+			<li class=""><a href="#kitchenroom" data-toggle="tab">Küche</a></li>
+			<li class=""><a href="#bathroom" data-toggle="tab">Bad</a></li>
+		</ul>
+	
+		<div class="tab-content" id="myTabcontent">
+			<div class="tab-pane fade active in" id="livingroom">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4>Steckdosen</h4>
+					</div>
+					<div class="panel-body">
+						<div id ="steckdosenContainer">
+							<script type="text/javascript">
+								renderSteckdosen();
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="restroom">
+				<p>Content</p>
+			</div>
+			<div class="tab-pane" id="workingroom">
+				<p>Content</p>
+			</div>
+			<div class="tab-pane" id="floorroom">
+				<p>Content</p>
+			</div>
+			<div class="tab-pane" id="kitchenroom">
+				<p>Content</p>
+			</div>
+			<div class="tab-pane" id="bathroom">
+				<p>Content</p>
+			</div>
+		</div>
+			
+	</div>
+	
+	<div class="alert alert-dismissible alert-warning">
+		<button class="close" type="button" data-dismiss="alert">&times;</button>
+		<h4>Warnung!</h4>
+		<p>	Debug-Modus, Elemente könnten falsch dargestellt werden!</p>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/js/custom.js"></script>
+	<script>
+		$('#secureOff').on("show.bs.modal", function(event){
+			var button = $(event.relatedTarget)
+			var deviceCode = button.data("devicecode")
+			var homeCode = button.data("homecode")
+			var outletName = button.data("outletname")
+			var modal = $(this)
+			document.getElementById("sendOffOk").onclick = function(){
+				outletOff(homeCode, deviceCode)
+				};
+			$(".modalSteckdosenName").html("Möchten Sie <strong>\""+ outletName +"\"</strong> wirklich ausschalten?");
+		})
+	</script>
+</body>
+</html>

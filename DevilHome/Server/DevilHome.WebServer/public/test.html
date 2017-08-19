@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/style2.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" />
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap_c.min.css"
+              asp-fallback-href="/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+	<script src="/js/roomControl.js"></script>
+</head>
+<body>
+	<div id="header">
+		<div class="logo"><a href="#">Devil<span>Home</span></a></div>
+	</div>
+	
+	<div id="container">
+
+	<div class="sidebar">
+			<ul id="nav">
+				<li><a class="selected" href="#">Dashboard</a></li>
+				<li><a href="#">Raumsteuerung</a></li>
+				<li><a href="#">Test</a></li>
+			</ul>
+		</div>
+		<div class="content">
+			<h1>Dashboard</h1>
+			<div id="box">
+				<div class="box-top">Wetter</div>
+				<div class="box-wetterpanel">
+					<div id ="steckdosenContainer">
+					Test
+						<script type="text/javascript">
+							renderSteckdosen();
+						</script>
+						Test2
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
