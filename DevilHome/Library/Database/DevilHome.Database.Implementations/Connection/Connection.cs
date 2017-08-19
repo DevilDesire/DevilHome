@@ -51,8 +51,7 @@ namespace DevilHome.Database.Implementations.Connection
 
             Room room = new Room
             {
-                Name = "Wohnzimmer",
-                Description = ""
+                Name = "Wohnzimmer"
             };
 
             dbRoom.Insert(room);

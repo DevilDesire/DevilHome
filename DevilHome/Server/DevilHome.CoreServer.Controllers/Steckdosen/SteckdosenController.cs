@@ -57,6 +57,7 @@ namespace DevilHome.CoreServer.Controllers.Steckdosen
                             HausCode = x.HausCode,
                             Fk_Raum_Id = x.Fk_Raum_Id,
                             Name = x.Name,
+                            Secure = x.Secure,
                             Id = x.Id
                         }));
 

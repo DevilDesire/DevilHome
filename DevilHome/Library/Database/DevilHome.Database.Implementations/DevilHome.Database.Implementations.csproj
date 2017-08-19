@@ -120,6 +120,7 @@
     <Compile Include="Tables\DbSensor.cs" />
     <Compile Include="Tables\DbSensorData.cs" />
     <Compile Include="Tables\DbSensorTyp.cs" />
+    <Compile Include="Tables\DbSystemConfiguration.cs" />
     <Compile Include="Values\Devicegroup.cs" />
     <Compile Include="Values\Device.cs" />
     <Compile Include="Values\Poweroutlet.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Values\Sensor.cs" />
     <Compile Include="Values\SensorData.cs" />
     <Compile Include="Values\SensorTyp.cs" />
+    <Compile Include="Values\SystemConfigurationValue.cs" />
     <Compile Include="Values\TimeControl.cs" />
     <EmbeddedResource Include="Properties\DevilHome.Database.Implementations.rd.xml" />
   </ItemGroup>

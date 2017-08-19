@@ -2,7 +2,8 @@
 
 namespace DevilHome.Database.Interfaces.Values
 {
-    public interface IRoom : IBaseValue
+    public interface IRoom : IDatabaseValue
     {
+        string Name { get; set; }
     }
 }

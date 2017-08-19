@@ -24,6 +24,8 @@ namespace DevilHome.CoreServer.Controllers
                     x.For<IDatabaseBase>().Use<DatabaseBase>();
                     //x.For<IDbSensor>().Use<DbSensor>();
                     x.For<IDbPoweroutlet>().Use<DbPoweroutlet>();
+                    x.For<IDbRoom>().Use<DbRoom>();
+                    x.For<IDbSystemConfiguration>().Use<DbSystemConfiguration>();
                 });
 
                 _isInitialized = true;
@@ -36,6 +38,8 @@ namespace DevilHome.CoreServer.Controllers
         protected IDbSensorData DbSensorData => Container.GetInstance<IDbSensorData>();
         protected IDbSensor DbSensor => Container.GetInstance<IDbSensor>();
         protected IDbPoweroutlet DbPoweroutlet => Container.GetInstance<IDbPoweroutlet>();
+        protected IDbRoom DbRoom => Container.GetInstance<IDbRoom>();
+        protected IDbSystemConfiguration DbSystemConfiguration => Container.GetInstance<IDbSystemConfiguration>();
         protected DateTime Now = DateTime.Now;
 
         protected string ConvertToJson<T>(T objectToConvert)

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel.Background;
+using DevilHome.CoreServer.Controllers.Raum;
 using DevilHome.CoreServer.Controllers.Sensoren;
 using DevilHome.CoreServer.Controllers.Steckdosen;
 using Restup.Webserver.Http;
@@ -22,6 +24,7 @@ namespace DevilHome.CoreServer
 
                 restRouteHandler.RegisterController<SteckdosenController>();
                 restRouteHandler.RegisterController<SensorenController>();
+                restRouteHandler.RegisterController<RaumController>();
 
                 HttpServerConfiguration configuration = new HttpServerConfiguration()
                     .ListenOnPort(9000)
@@ -34,7 +37,7 @@ namespace DevilHome.CoreServer
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
+                Debug.WriteLine(ex.Message);
             }
         }
     }

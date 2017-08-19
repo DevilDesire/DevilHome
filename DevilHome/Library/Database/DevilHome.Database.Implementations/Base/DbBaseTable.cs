@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DevilHome.Database.Interfaces.Base;
 using SQLite.Net;
 
@@ -35,31 +33,28 @@ namespace DevilHome.Database.Implementations.Base
             return value.Id;
         }
 
-        public void Update(TY value)
+        public int InsertUpdate(TY value)
         {
             using (SQLiteConnection conn = DbConnection)
             {
-                string updateString = $"update {GetTableName()} set";
+                TY existingValue = GetValueById(value.Id);
 
-                foreach (PropertyInfo propertyInfo in value.GetType().GetProperties())
-                {
-                    if (propertyInfo.Name == "Id")
-                    {
-                        continue;
-                    }
-
-                    updateString += $" {propertyInfo.Name}={propertyInfo.GetValue(value)},";
-                }
-
-                if (updateString.EndsWith(","))
-                {
-                    updateString = updateString.Remove(updateString.LastIndexOf(",", StringComparison.Ordinal));
-                }
-
-                updateString += $"where Id={value.Id}";
-
-                conn.Query<T>(updateString);
+                return existingValue == null ? conn.Insert(value) : conn.Update(value);
             }
+        }
+
+        public int Update(TY value)
+        {
+            using (SQLiteConnection conn = DbConnection)
+            {
+                conn.Update(value);
+                return value.Id;
+            }
+        }
+
+        public void Delete(TY value)
+        {
+            DbConnection.Delete(value);
         }
 
         public void DeleteById(int id)
@@ -80,6 +75,14 @@ namespace DevilHome.Database.Implementations.Base
             }
 
             return returnList;
+        }
+
+        public TY ExecuteScalar(string sqlString)
+        {
+            using (SQLiteConnection conn = DbConnection)
+            {
+                return conn.ExecuteScalar<TY>(sqlString);
+            }
         }
 
         private string GetTableName()

@@ -106,10 +106,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationGetter.cs" />
     <Compile Include="ControllersBase.cs" />
     <Compile Include="Database\DatabaseBase.cs" />
     <Compile Include="Database\IDatabaseBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Raum\RaumController.cs" />
     <Compile Include="Sensoren\SensorenController.cs" />
     <Compile Include="Steckdosen\SteckdosenController.cs" />
     <EmbeddedResource Include="Properties\DevilHome.CoreServer.Controllers.rd.xml" />

@@ -1,5 +1,6 @@
 ﻿using Sensors.Dht;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
@@ -12,6 +13,7 @@ namespace DevilHome.Server.Services.TempertureService
     internal class TemperatureGetter
     {
         private static GpioPin _gpioPin;
+
         public IAsyncAction Run()
         {
             return Task.Run(() =>
@@ -39,8 +41,15 @@ namespace DevilHome.Server.Services.TempertureService
                     isValid = reader.IsValid;
                 }
 
-                Network.Instance.LoadUrl(String.Format("http://192.168.178.47:9000/api/sensoren/add?raumname={0}&sensortyp={1}&value={2}", "Wohnzimmer", SensorEnum.Temperatur.GetStringValue(), temperature));
-                Network.Instance.LoadUrl(String.Format("http://192.168.178.47:9000/api/sensoren/add?raumname={0}&sensortyp={1}&value={2}", "Wohnzimmer", SensorEnum.Humidity.GetStringValue(), humidity));
+                try
+                {
+                    Network.Instance.LoadUrl(string.Format("http://localhost:9000/api/sensoren/adddata?raumname={0}&sensortyp={1}&value={2}", "Wohnzimmer", SensorEnum.Temperatur.GetStringValue(), temperature));
+                    Network.Instance.LoadUrl(string.Format("http://localhost:9000/api/sensoren/adddata?raumname={0}&sensortyp={1}&value={2}", "Wohnzimmer", SensorEnum.Humidity.GetStringValue(), humidity));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
             }
         }
     }
